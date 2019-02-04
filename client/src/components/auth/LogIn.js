@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Card, CardBody, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signIn } from '../../store/actions/authActions';
+import classnames from 'classnames';
 
 class LogIn extends Component {
 	state = {
@@ -9,6 +13,21 @@ class LogIn extends Component {
 		errors: {}
 	}
 
+  componentDidMount = () => {
+    //if user already loggedin than redirected to home
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/');
+    }
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if(nextProps.auth.isAuthenticated) {
+      this.props.history.push('/');
+    }
+    if(nextProps.errors) {
+      this.setState({errors: nextProps.errors})
+    }
+  }
 	onChange = (e) => {
 		this.setState({[e.target.name]: e.target.value});
 	}
@@ -16,14 +35,17 @@ class LogIn extends Component {
 	onSubmit = (e) => {
 		e.preventDefault();
 
-		const user = {
+		const userData = {
 			email: this.state.email,
 			password: this.state.password,
-		}
-		console.log(user);
+    }
+    
+		this.props.signIn(userData);
 	}
 
   render() {
+    const { errors } = this.state;
+
     return (
       <Container>
         <Row className="mt-5">
@@ -34,11 +56,13 @@ class LogIn extends Component {
                 <Form noValidate onSubmit={this.onSubmit}>
                   <FormGroup>
                     <Label for="email">Email</Label>
-                    <Input type="email" name="email" id="email" placeholder="Enter Email" value={this.state.email} onChange={this.onChange}></Input>
+                    <Input className={classnames({"is-invalid" : errors.email})} type="email" name="email" id="email" placeholder="Enter Email" value={this.state.email} onChange={this.onChange}></Input>
+                    {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                   </FormGroup>
                   <FormGroup>
                     <Label for="password">Password</Label>
-                    <Input type="password" name="password" id="password" placeholder="Enter Password" value={this.state.password} onChange={this.onChange}></Input>
+                    <Input className={classnames({"is-invalid" : errors.password})} type="password" name="password" id="password" placeholder="Enter Password" value={this.state.password} onChange={this.onChange}></Input>
+                    {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                   </FormGroup>
                   <Button type="submit" color="primary" className="btn-block">Login</Button>
                 </Form>
@@ -54,4 +78,20 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
+LogIn.propTypes = {
+  signIn: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+  errors: state.errors
+});
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signIn: (userData) => dispatch(signIn(userData))
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
