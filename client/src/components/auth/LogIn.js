@@ -31,7 +31,7 @@ class LogIn extends Component {
             <Card>
               <CardBody>
                 <h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i>  Login</h1>
-                <Form onSubmit={this.onSubmit}>
+                <Form noValidate onSubmit={this.onSubmit}>
                   <FormGroup>
                     <Label for="email">Email</Label>
                     <Input type="email" name="email" id="email" placeholder="Enter Email" value={this.state.email} onChange={this.onChange}></Input>
