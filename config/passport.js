@@ -4,6 +4,7 @@ const mongoose = require('../models/User');
 const User = mongoose.model('User');
 const keys = require('../config/keys');
 
+//create options for jwt-strategy
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
