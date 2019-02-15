@@ -6,6 +6,7 @@ import AppBar from './components/layout/AppBar';
 import Home from './components/layout/Home';
 import LogIn  from './components/auth/LogIn';
 import Register from './components/auth/Register';
+import Create from './components/layout/Create';
 
 import { createStore, applyMiddleware, compose} from 'redux'
 import { Provider } from 'react-redux';
@@ -59,6 +60,7 @@ class App extends Component {
               <Route exact path="/" component={Home}/>
               <Route exact path="/login" component={LogIn}/>
               <Route exact path="/register" component={Register}/>
+              <Route exact path="/create" component={Create}/>
             </Switch>
           </div>
         </BrowserRouter>

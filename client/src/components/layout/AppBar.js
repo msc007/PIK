@@ -6,21 +6,22 @@ import { signOut } from '../../store/actions/authActions';
 
 
 class AppBar extends Component {
+    //State
     state = {
         collapsed: true
     };
-
+    //Collapsed menue handler
     toggleNavbar = () => {
         this.setState({
           collapsed: !this.state.collapsed
         });
     }
-
+    //Logout button handler
     onClickLogout = (e) => {
         e.preventDefault();
         this.props.signOut();
     }
-
+    //Render
     render() {
         const { isAuthenticated } = this.props.auth;
 
@@ -59,15 +60,18 @@ class AppBar extends Component {
     }
 }
 
+//Checking Peoptypes 
 AppBar.PropTypes = {
     signOut: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 }
 
+//Connect redux state to this component's props
 const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
+//Set signOut action as  this component's props
 const mapDispatchToProps = (dispatch) => {
 	return {
         signOut: () => dispatch(signOut())

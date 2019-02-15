@@ -78,16 +78,18 @@ class LogIn extends Component {
   }
 }
 
+//For type checking props
 LogIn.propTypes = {
   signIn: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
+//get updated state if any (i.e from other component)
 const mapStateToProps = (state) => ({
 	auth: state.auth,
   errors: state.errors
 });
-
+//dispatch an action event
 const mapDispatchToProps = (dispatch) => {
 	return {
 		signIn: (userData) => dispatch(signIn(userData))

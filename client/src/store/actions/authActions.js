@@ -46,7 +46,7 @@ export const signIn = (userData) => {
     }
 };
 
-
+//Logout User
 export const signOut = () => {
     return (dispatch) => {
         //remove token from local storage

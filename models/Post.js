@@ -13,6 +13,12 @@ const PostSchema = new Schema({
     description: {
         type: String
     },
+    images: [
+        {
+            data: Buffer,
+            contentType: String
+        }
+    ],
     date: {
         type: Date,
         default: Date.now
