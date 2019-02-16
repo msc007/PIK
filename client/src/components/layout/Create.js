@@ -34,11 +34,10 @@ export default class Create extends Component {
 						<Label>Images</Label>
 						<Input type="file" name="file" />
 						<FormText color="muted">
-							This is some placeholder block-level help text for the above input.
-							It's a bit lighter and easily wraps to a new line.
+							Choose images for your tournament!
 						</FormText>
 					</FormGroup>
-					<Button>Submit</Button>
+					<Button className="btn-block">Submit</Button>
 				</Form>
 			</CardBody>
 		</Card>
