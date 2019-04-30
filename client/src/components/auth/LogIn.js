@@ -33,8 +33,8 @@ class LogIn extends Component {
 	}
 
 	onSubmit = (e) => {
-		e.preventDefault();
-
+    e.preventDefault();
+    
 		const userData = {
 			email: this.state.email,
 			password: this.state.password,
